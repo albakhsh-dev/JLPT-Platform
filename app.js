@@ -14,7 +14,7 @@ window.showZoomModal = (htmlContent, translationText = "") => {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.9);
+      background: var(--glass-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 99999;
@@ -24,8 +24,8 @@ window.showZoomModal = (htmlContent, translationText = "") => {
     `;
     modal.innerHTML = `
       <div class="zoom-modal-card" style="
-        background: rgba(30, 41, 59, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
         border-radius: 16px;
         padding: 40px;
         max-width: 90%;
@@ -50,7 +50,7 @@ window.showZoomModal = (htmlContent, translationText = "") => {
         </h3>
         
         <div class="zoom-content-box" style="
-          background: rgba(15, 23, 42, 0.6);
+          background: var(--bg-tertiary);
           border-radius: 12px;
           padding: 35px 24px;
           margin-bottom: 24px;
@@ -948,20 +948,6 @@ class NihongoApp {
             </div>
             <div class="preview-body">
               <div class="user-greeting">こんにちは, ${this.state.user.username}!</div>
-              <div class="preview-stat-grid">
-                <div class="stat-box">
-                  <span class="value">${this.state.user.streak}</span>
-                  <span class="label">Day Streak 🔥</span>
-                </div>
-                <div class="stat-box">
-                  <span class="value">Lvl ${this.state.user.level}</span>
-                  <span class="label">Rank: Ninja Scholar</span>
-                </div>
-              </div>
-              <div class="progress-bar-container">
-                <div class="progress-bar-fill" style="width: ${(this.state.user.xp / this.state.user.xpToNextLevel) * 100}%"></div>
-              </div>
-              <div class="progress-label">${this.state.user.xp} / ${this.state.user.xpToNextLevel} XP to Level ${this.state.user.level + 1}</div>
             </div>
           </div>
         </div>
