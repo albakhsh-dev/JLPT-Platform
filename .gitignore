@@ -2,3 +2,13 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
+.venv/
+test_*.py
+inspect_*.py
+inspect_*.js
+clean_*.py
+find_*.py
+print_env.py
+generate_vocab_examples.py
+neural.css
+vocab_examples_cache*.json

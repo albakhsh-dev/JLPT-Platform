@@ -1,4 +1,6 @@
 fastapi
 uvicorn[standard]
+gunicorn
 google-genai
 aiofiles
+

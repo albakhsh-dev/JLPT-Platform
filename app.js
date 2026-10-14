@@ -154,7 +154,6 @@ class NihongoApp {
   init() {
     this.setupRouter();
     this.setupGlobalEvents();
-    this.updateDashboardStats();
   }
 
   generateFurigana(word, kana) {
@@ -586,7 +585,6 @@ class NihongoApp {
     }
 
     this.saveState();
-    this.updateDashboardStats();
 
     if (leveledUp) {
       this.showNotification("🎉 LEVEL UP!", `You have reached Level ${this.state.user.level}! Keep going!`, "success");
@@ -859,6 +857,8 @@ class NihongoApp {
     container.innerHTML = ""; // Clear current view
     window.scrollTo(0, 0);
 
+    document.body.classList.remove("is-home-page");
+
     // Track page views in user progress
     if (page !== "home" && page !== "login") {
       this.addToRecentLessons(page);
@@ -948,6 +948,20 @@ class NihongoApp {
             </div>
             <div class="preview-body">
               <div class="user-greeting">こんにちは, ${this.state.user.username}!</div>
+              <div class="preview-stat-grid">
+                <div class="stat-box">
+                  <span class="value">${this.state.user.streak}</span>
+                  <span class="label">Day Streak 🔥</span>
+                </div>
+                <div class="stat-box">
+                  <span class="value">Lvl ${this.state.user.level}</span>
+                  <span class="label">Rank: Ninja Scholar</span>
+                </div>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" style="width: ${(this.state.user.xp / this.state.user.xpToNextLevel) * 100}%"></div>
+              </div>
+              <div class="progress-label">${this.state.user.xp} / ${this.state.user.xpToNextLevel} XP to Level ${this.state.user.level + 1}</div>
             </div>
           </div>
         </div>
@@ -1056,17 +1070,18 @@ class NihongoApp {
     `;
 
     // Button event listeners
-    document.getElementById("hero-start-btn").addEventListener("click", () => this.navigateTo("dashboard"));
-    document.getElementById("hero-kakashi-btn").addEventListener("click", () => this.navigateTo("kakashi"));
-    document.getElementById("meet-kakashi-btn").addEventListener("click", () => this.navigateTo("kakashi"));
+    const heroStartBtn = document.getElementById("hero-start-btn");
+    if (heroStartBtn) heroStartBtn.addEventListener("click", () => this.navigateTo("vocab"));
+    const heroKakashiBtn = document.getElementById("hero-kakashi-btn");
+    if (heroKakashiBtn) heroKakashiBtn.addEventListener("click", () => this.navigateTo("kakashi"));
+    const meetKakashiBtn = document.getElementById("meet-kakashi-btn");
+    if (meetKakashiBtn) meetKakashiBtn.addEventListener("click", () => this.navigateTo("kakashi"));
 
     document.querySelectorAll(".level-card, .btn-level").forEach(card => {
       card.addEventListener("click", (e) => {
-        // Find closest level card
         const lvlCard = e.target.closest(".level-card");
         if (lvlCard) {
           const level = lvlCard.getAttribute("data-level");
-          // Store selected level for direct filters on pages
           this.selectedLevelFilter = level;
           this.navigateTo("vocab");
         }

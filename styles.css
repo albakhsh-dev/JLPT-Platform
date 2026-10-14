@@ -3080,3 +3080,36 @@ body.light-mode #theme-selector, body.theme-light #theme-selector, body.theme-sa
     transform: translateY(0);
   }
 }
+
+/* ==========================================================================
+   Rising Lines Component (React Bits Pro Inspired)
+   ========================================================================== */
+.rising-lines-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: screen;
+  overflow: hidden;
+}
+
+#rising-lines-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ensure all page headers and modal overlays float on top */
+.app-header {
+  z-index: 100 !important;
+}
+
+.drawer-overlay,
+.notification-container {
+  z-index: 150 !important;
+}
+
+

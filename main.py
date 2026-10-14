@@ -27,11 +27,11 @@ if os.path.exists(".env"):
                 line = line.strip()
                 if line and not line.startswith("#") and "=" in line:
                     k, v = line.split("=", 1)
-                    os.environ[k.strip()] = v.strip()
+                    os.environ[k.strip()] = v.strip().strip('"').strip("'")
     except Exception as e:
         print(f"Warning: Could not read .env file: {e}")
 
-api_key = os.environ.get("GEMINI_API_KEY")
+api_key = (os.environ.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
 
 # System prompt to give KAKASHI its personality
 KAKASHI_PROMPT = """You are KAKASHI, a friendly, supportive, and highly knowledgeable Japanese Sensei (tutor) and mentor. 
@@ -50,9 +50,7 @@ init_error = None
 if api_key:
     try:
         client = genai.Client(api_key=api_key)
-        # Allow choosing the model via GEMINI_MODEL env var (e.g., 'gemini-2.5-flash')
-        model_name = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
-        # Initialize the chat session with the system prompt
+        model_name = (os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash").strip().strip('"').strip("'")
         chat_session = client.chats.create(
             model=model_name,
             config=types.GenerateContentConfig(
