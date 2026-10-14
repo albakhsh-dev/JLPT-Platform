@@ -2589,7 +2589,7 @@ rt {
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 110;
+  z-index: 220;
   outline: none;
 }
 
@@ -2622,10 +2622,10 @@ rt {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 99;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 150;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -2700,20 +2700,20 @@ rt {
     width: 280px;
     height: 100vh;
     background: var(--bg-secondary) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-left: 1px solid var(--border-color);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
     flex-direction: column;
-    padding: 90px 24px 40px;
-    gap: 12px;
-    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
-    z-index: 100;
+    padding: 85px 20px 40px;
+    gap: 10px;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+    z-index: 210;
     border-radius: 0;
     margin: 0;
-    display: flex; /* Override display: none / flex row settings */
+    display: flex;
     visibility: hidden;
     pointer-events: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .nav-links.open {
@@ -3102,14 +3102,17 @@ body.light-mode #theme-selector, body.theme-light #theme-selector, body.theme-sa
   display: block;
 }
 
-/* Ensure all page headers and modal overlays float on top */
+/* Ensure all page headers and modal overlays float on top with correct stacking */
 .app-header {
-  z-index: 100 !important;
+  z-index: 200 !important;
 }
 
-.drawer-overlay,
-.notification-container {
+.drawer-overlay {
   z-index: 150 !important;
+}
+
+.notification-container {
+  z-index: 1000 !important;
 }
 
 

@@ -684,7 +684,12 @@ class NihongoApp {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const page = link.getAttribute("data-page");
-        window.location.hash = page;
+        if (window.location.hash === `#${page}` || (window.location.hash === "" && page === "home")) {
+          this.navigateTo(page);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          window.location.hash = page;
+        }
       });
     });
 
@@ -747,6 +752,15 @@ class NihongoApp {
         overlay.classList.remove("open");
       });
     }
+
+    // Close drawer when any section link is clicked on mobile
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        if (hamburger) hamburger.classList.remove("active");
+        if (navLinks) navLinks.classList.remove("open");
+        if (overlay) overlay.classList.remove("open");
+      });
+    });
 
     // Theme selector (desktop and mobile)
     const themeSelector = document.getElementById("theme-selector");
